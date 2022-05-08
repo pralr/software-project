@@ -1,0 +1,14 @@
+
+public class Messages {
+	
+	protected String sender; 
+	protected String receiver; 
+	protected String messages;
+	
+	public Messages(String sender, String receiver, String messages) {
+		this.sender = sender;
+		this.receiver = receiver;
+		this.messages = messages;
+	}  
+	
+}

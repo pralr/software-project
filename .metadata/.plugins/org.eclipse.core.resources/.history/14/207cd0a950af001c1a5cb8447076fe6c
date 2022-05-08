@@ -1,0 +1,53 @@
+package application;
+import java.util.Locale;
+import java.util.Scanner;
+import entities.Product; 
+
+public class Program {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner input = new Scanner(System.in);
+
+		
+		System.out.println("Enter product data: ");
+		System.out.println("Name: ");
+		
+		String name = input.nextLine(); 
+		
+		double price = input.nextDouble();
+		
+		System.out.println("Quantity in stock: ");
+		
+		int quantity = input.nextInt();
+		
+		// ao inves de criar lá em cima sem instanciar
+		// eu vou obrigar o programador a informar as variaveis
+		// com o construtor criado no outro arquivo 
+		Product product = new Product(name, price, quantity);
+		
+		// essa operação nao existe na classe Project, mas existe 
+		// na minha variável product, pq o meu objeto é do tipo Product
+		// e também é do tipo Object, e o equals é uma operação que tá definida
+		// na classe Object
+		// por isso aparece várias operações além das q vc já incrementou
+		
+		System.out.println(product.name + " " + product.price + " " + product.quantity);
+		//System.out.println(product.toString());
+		System.out.println(product);
+		
+		System.out.println("Numero de produtos para ser adicionados no estoque: ");
+		
+		quantity = input.nextInt();
+		product.addProducts(quantity);
+		System.out.println(product);
+		
+		System.out.println("Numero de produtos para ser removidos do estoque: ");
+		quantity = input.nextInt();
+		product.removeProducts(quantity);
+		System.out.println(product);
+		
+		input.close();
+	}
+
+}

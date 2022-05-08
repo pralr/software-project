@@ -1,0 +1,30 @@
+package application;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		Set<String> set = new TreeSet<>();
+		set.add("TV", 900.0));
+		set.add("Notebook", 1200.0));
+		set.add("Tablet", 400.0));
+		
+		set.remove("Tablet");
+		
+		// remove If!
+		// Remover todo elemento x tal que x.length seja maior ou igual a 3
+		set.removeIf(x -> x.length() >= 3); 
+		// remover todo mundo que tem a primeira letra igual a letra T
+		// set.removeIf(x -> x.charAt(0) == 'T');
+		
+		for (String p : set) {
+			System.out.println(p);
+		}
+	}
+	
+
+}

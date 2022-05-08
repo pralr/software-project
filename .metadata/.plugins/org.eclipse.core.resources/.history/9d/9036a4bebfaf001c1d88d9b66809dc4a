@@ -1,0 +1,33 @@
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Enterprise {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner input = new Scanner(System.in);
+		int n = input.nextInt();
+		Product[] vect = new Product[n];
+		for (int i = 0; i < n; i++) {
+			String name = input.nextLine();
+			double price = input.nextDouble();
+			// tem que instanciar um novo produto
+			// e o vet na posicao i vai apontar p esse 
+			// objeto
+			vect[i] = new Product(name, price);
+		}
+		
+		double sum = 0.0; 
+		for (int i =0; i < n; i++) {
+			sum+= vect[i].getPrice();
+		}
+		
+		double avg = sum / n; 
+		System.out.printf("Average price: %.2f\n", avg));
+		
+		input.close();
+	}
+
+}

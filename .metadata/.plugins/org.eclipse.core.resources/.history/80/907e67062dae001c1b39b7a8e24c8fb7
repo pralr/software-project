@@ -1,0 +1,6 @@
+package entities;
+// entities pq o produto é uma entidade do meu negócio
+
+public class Product {
+
+}

@@ -1,0 +1,17 @@
+package iface;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Teste {
+
+	public static void main(String[] args) {
+		List<User> users = new ArrayList<>();
+		
+		User user = new User("p", "p", "p");
+		User user2 = new User("a", "a", "a");
+		User user3 = new User("e", "e", "e");
+
+	}
+
+}

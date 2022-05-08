@@ -1,0 +1,13 @@
+package entities;
+
+public class Worker {
+	private String name; 
+	private WorkerLevel level; 
+	private Double baseSalary;
+	
+	// agora vou botar as associacoes
+	// worker tem um department (departamento) 
+	// a outra associacao: um worker tem varios contracts
+	
+	private Department department; 
+}

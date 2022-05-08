@@ -1,0 +1,12 @@
+import java.util.ArrayList;
+
+public class Feed {
+	protected ArrayList<String> feedMessages = new ArrayList<>();
+	protected int permission;
+	
+	public Feed() {
+		
+	}
+
+
+}

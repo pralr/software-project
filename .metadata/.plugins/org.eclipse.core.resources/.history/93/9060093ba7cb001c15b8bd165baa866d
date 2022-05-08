@@ -1,0 +1,74 @@
+import java.util.Scanner;
+
+public class Account {
+	protected String login;
+	protected String password; 
+	protected String nickname;
+	protected String about; 
+	protected int age; 
+	protected String address; 
+	
+	public Account() {
+		
+	}
+
+	public Account(String login, String password, String nickname) {
+		this.login = login;
+		this.password = password;
+		this.nickname = nickname;
+		
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	
+	
+	
+	
+}

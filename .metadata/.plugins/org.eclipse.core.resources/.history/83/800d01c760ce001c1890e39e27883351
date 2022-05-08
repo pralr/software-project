@@ -1,0 +1,18 @@
+import java.util.ArrayList;
+
+public class Feed {
+	protected ArrayList<String> privateMessages;
+	protected ArrayList<String> publicMessages;
+	
+	public Feed() {
+		
+	}
+
+	public Feed(ArrayList<String> privateMessages, ArrayList<String> publicMessages) {
+		this.privateMessages = new ArrayList<>();
+		this.publicMessages = new ArrayList<>();
+	}
+	
+	
+
+}

@@ -1,0 +1,102 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class Main {
+	public static void main(String[] args) {
+		// vamos supor que eu quero declarar uma lista
+		// de números inteiros
+		// nome da lista vai ser list 
+		//List<Integer> list;
+		// não aceita tipos primitivos
+		// ex. List<int> 
+		// você tem que usar a wrapper class do inteiro
+		// que é o Interger!
+		// essa declaração não permite que eu use a lista
+		// preciso instanciar List<Integer> list;
+		List<String> list = new ArrayList<>(); 
+		// preciso colocar uma CLASSE que implementa uma interface
+		// nao pode ser new List<>(); 
+		// utilizamos a classe ArrayList<>();
+		list.add("Maria"); 
+		list.add("João");
+		list.add("Pedro"); 
+		
+		for(String x : list) {
+			System.out.println(x);
+		}
+		
+		// vamos supor que eu queira inserir um elemento
+		// entre a maria e o joao
+		list.add(1, "Luana");
+		
+		System.out.println("------NOVA LISTA---------");
+		
+		for(String x : list) {
+			System.out.println(x);
+		}
+		
+		System.out.println("------tamanho da LISTA---------");
+		System.out.println(list.size());
+		
+		// REMOVER ELEMENTO DA LISTA
+		
+		list.remove("Pedro");
+		// perceba que esse pedro é outro pedro
+		
+		System.out.println("------REMOVE---------");
+		
+		for(String x : list) {
+			System.out.println(x);
+		}
+		
+		// também pode remover assim: list.remove(1);
+		// p remover o da pos 1 
+		// quero remover os cuja o nome começa com.. sei lá, tal letra
+		// list.removeIf(x -> x.charAt(0) == 'M'); 
+		// estou definindo uma função lambda
+		// quero tirar todo nome que comece com 0 
+		// pega um valor x e me retorna se esse x é igual a M
+		// entao tenho um predicado
+		
+		list.removeIf(x -> x.charAt(0) == 'M');
+		
+		System.out.println("------TIRANDO DEPENDENDO DA LETRA---------");
+		
+		for(String x : list) {
+			System.out.println(x);
+		}
+		
+		// encontrando a posição de um elemento
+		
+		System.out.println("Endereço da luana: " + list.indexOf("Luana"));
+		
+		// se eu procurar alguem que nao existe
+		// quando o index nao encontra o elemento ele retorna -1
+		// agora eu só quero deixar na lista quem tem o nome
+		// que começa com "L"
+		
+		/* for (int i = 0; i < users.size(); i++) {
+				    System.out.println("Users : " + users.get(i));
+				}
+				
+			*/
+		
+		List<String> result = list.stream().filter(x -> x.charAt(0) == 'L').collect(Collectors.toList());
+		// collectors = converto pra string, faço a operação lambda, e dps volto pra lista (collectors)
+		
+		System.out.println("Imprima só quem começa com L: ");
+		for(String x : result) {
+			System.out.println(x);
+		}
+		
+		// encontrar um elemento da lista que atende um certo 
+		// predicado (condicao)
+		System.out.println("---------------------");
+		
+		String name = list.stream().filter(x -> x.charAt(0) == 'L').findFirst().orElse(null);
+		System.out.println(name);
+		
+		}
+}

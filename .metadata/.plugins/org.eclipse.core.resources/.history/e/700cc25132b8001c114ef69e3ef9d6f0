@@ -1,0 +1,34 @@
+package entities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.enums.WorkerLevel;
+
+public class Worker {
+	private String name; 
+	private WorkerLevel level; 
+	private Double baseSalary;
+	
+	// agora vou botar as associacoes
+	// worker tem um department (departamento) 
+	// a outra associacao: um worker tem varios contracts
+	
+	private Department department; // a lista tem que ser instanciada ja na declaracao do atributo
+	private List<HourContract> contracts = new ArrayList<>();
+	// nome da lista contracts
+	
+	public Worker() {
+		
+	}
+	
+	// desmarque a LISTA dos construtores.
+	public Worker(String name, WorkerLevel level, Double baseSalary, Department department) {
+		this.name = name;
+		this.level = level;
+		this.baseSalary = baseSalary;
+		this.department = department;
+	}
+	
+	
+}

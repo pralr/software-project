@@ -1,0 +1,109 @@
+package entities;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import entities.enums.WorkerLevel;
+
+public class Worker {
+	private String name; 
+	private WorkerLevel level; 
+	private Double baseSalary;
+	
+	// agora vou botar as associacoes
+	// worker tem um department (departamento) 
+	// a outra associacao: um worker tem varios contracts
+	
+	private Department department; // a lista tem que ser instanciada ja na declaracao do atributo
+	private List<HourContract> contracts = new ArrayList<>();
+	// nome da lista contracts
+	
+	public Worker() {
+		
+	}
+	
+	// desmarque a LISTA dos construtores.
+	public Worker(String name, WorkerLevel level, Double baseSalary, Department department) {
+		this.name = name;
+		this.level = level;
+		this.baseSalary = baseSalary;
+		this.department = department;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public WorkerLevel getLevel() {
+		return level;
+	}
+
+	public void setLevel(WorkerLevel level) {
+		this.level = level;
+	}
+
+	public Double getBaseSalary() {
+		return baseSalary;
+	}
+
+	public void setBaseSalary(Double baseSalary) {
+		this.baseSalary = baseSalary;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	public List<HourContract> getContracts() {
+		return contracts;
+	}
+
+	// nao pode set na lista, se nao troca por outra lista.
+	
+	// quando voce tem uma composicao com muitos (Lista)
+	// voce nao inclui no construtor, vc simplesmente inicia sua lista vazia 
+	
+	
+	// ------------ MÉTODOS --------------------
+	// faz e desfaz a associacao do contrato (add ou remove)
+	
+	// o que esse metodo faz? vai pegar a listinha de contratos
+	// e adicionar o contrato q veio como argumento
+	public void addContract(HourContract contract) {
+		contracts.add(contract);
+	}
+	
+	// remover o contrato informado
+	public void removeContract(HourContract contract) {
+		contracts.remove(contract);
+	}
+	
+	public double income(int year, int month) {
+		double sum = baseSalary; 
+		Calendar cal = Calendar.getInstance();
+		// tenho que percorrer os salarios do funcionario
+		// ver qual é o do mes e o do ano
+		// se for, entra na soma tb.
+		// pra cada contrato c na lista de contrato
+		// vou testar se o contrato eh desse ano e desse mes
+		// caso seja vou adicionar na soma
+		for(HourContract c : contracts) {
+			cal.setTime(c.getDate());
+			// se fosse acrescentar todos os contratos, sum += c.totalValue();
+			int c_year = cal.get(Calendar.YEAR);
+			int c_month = 1 + cal.get(Calendar.MONTH);
+			if(year == c_year && month == c_month) {
+				sum += c.totalValue();
+			}
+		}
+	}
+}

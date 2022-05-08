@@ -1,0 +1,15 @@
+package entities;
+// entities pq o produto é uma entidade do meu negócio
+
+public class Product {
+	publicc String name; 
+	public double price;
+	public int quantity; 
+	
+	// agora vamos criar as operações/funções/métodos
+	public double totalValueInStock() {
+		// começando em letra minuscula seguindo o padrão
+		// de nomes do java
+		return price * quantity; 
+	}
+}

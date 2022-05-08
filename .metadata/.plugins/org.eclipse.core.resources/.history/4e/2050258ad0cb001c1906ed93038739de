@@ -1,0 +1,10 @@
+
+public class Messages {
+	
+	protected String sender; 
+	protected String receiver; 
+	protected String messages;  
+	
+	
+	
+}
