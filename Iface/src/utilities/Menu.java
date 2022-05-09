@@ -440,12 +440,8 @@ public class Menu {
 		public void postFeed(Account account) { 
 			System.out.println("Do you want to post (1) public or (2) private?"); 
 			int option = scan.nextInt();
-			scan.nextLine();
-			if(option != 1 || option != 2) {
-				System.out.println("Invalid value.");
-				return;
-			}
 			System.out.println("Type your message: ");
+			scan.nextLine();
 			String message = scan.nextLine();
 			Feed newMessage = new Feed(message, account.getLogin(), option);
 			feed.add(newMessage);
@@ -476,7 +472,7 @@ public class Menu {
 			case 1:
 				
 				// apagar comunidades (feitas e participantes), relacoes de amizade (+convites enviados e recebidos)
-				// mensagens particulares enviadas e recebidas +feed 
+				// mensagens particulares enviadas e recebidas + 
 				
 				account.setLogin(null);
 				account.setPassword(null);
