@@ -1,15 +1,15 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import entities.Account;
 
-
 public class Menu {
-	ArrayList<Account> users = new ArrayList<>();
-	ArrayList<Message> messages = new ArrayList<>();
-	ArrayList<Community> communities = new ArrayList<>();
-	ArrayList<Feed> feed = new ArrayList<>();
+	List<Account> users = new ArrayList<>();
+	List<Message> messages = new ArrayList<>();
+	List<Community> communities = new ArrayList<>();
+	List<Feed> feed = new ArrayList<>();
 	
 	Scanner scan = new Scanner(System.in);
 	
@@ -66,7 +66,8 @@ public class Menu {
 	         System.out.println("9 - Get my informations");
 	         System.out.println("10 - Send message to feed");
 	         System.out.println("11 - Show feed");
-	         System.out.println("12 - Exit");
+	         System.out.println("12 - Delete account");
+	         System.out.println("13 - Exit");
 	         
 	         System.out.print("option: ");
 	         int option = scan.nextInt();
@@ -105,11 +106,14 @@ public class Menu {
 	             case 11:
 	            	 showFeed(account);
 	            	 break;
-	             case 12: 
+	             case 12:
+	            	deleteAccount(account);
+	            	 break;
+	             case 13: 
 	            	 System.out.println("See you soon, " + account.getLogin() + "!");
 	            	 return;
 	             default:
-	                 System.out.println("Invalid Value");
+	                 System.out.println("Invalid value.");
 	                 break;
 	         }
 	      }
@@ -246,7 +250,7 @@ public class Menu {
 		System.out.println("Insert user who you want to manage: ");
 		Account friend = findAccount(scan.next());
 		if(friend == null) {
-			System.out.println("Account doesn't exist.");
+			System.out.println("No user with that name has added you.");
 			return;
 		}
 		
@@ -261,9 +265,10 @@ public class Menu {
 				friend.getFriends().add(account.getLogin());
 				System.out.println("You're friends with " + friend.getLogin() + "!");
 			} else if(option == 2) {
-				account.getReceivedInvitation().remove(friend.getLogin());
-				friend.getSendInvitation().remove(account.getLogin());
+				System.out.println("You declined + " + friend.getLogin() + "'s invitation.");
 			}
+			account.getReceivedInvitation().remove(friend.getLogin());
+			friend.getSendInvitation().remove(account.getLogin());
 		} 
 	}
 		
@@ -289,9 +294,8 @@ public class Menu {
 				for(Message msg : messages) {
 					if(msg.getSender().equals(receiver) || msg.getSender().equals(account.getLogin())) {
 						if(msg.getReceiver().equals(account.getLogin()) || msg.getReceiver().equals(receiver)) {
-							
+			
 							System.out.println(msg.getSender() + ": " + msg.getMessages());
-							
 						}
 					} 
 				}
@@ -365,9 +369,11 @@ public class Menu {
 						switch(option) {
 						case 1:
 							if(findAccount(nameMember)!=null) {
+								// add o usuario na comunidade
 								searchCommunity(nameCommunity).getMembers().add(nameMember); 
-								// adiciona o usuario na comunidade
-								// FALTA ************* adiciona a comunidade no perfil do usuario 
+								// add a comunidade no perfil do usuario 
+							    Account aux = findAccount(nameMember); 
+								aux.getCommunities().add(searchCommunity(nameCommunity));
 							} else {
 								System.out.println("User doesn't exists.");
 							}
@@ -398,28 +404,24 @@ public class Menu {
 			String community = scan.nextLine();
 			if(searchCommunity(community) != null) {
 				Community aux = searchCommunity(community);
-				
 				for(Community c : account.getCommunities()) {
 					if(c.getName().equals(community)) {
 						System.out.println("You're already in this community.");
 						return; 
 					}
 				}
-				
 				account.getCommunities().add(searchCommunity(community));
 				System.out.println("You're now member of: " + community);
 				System.out.println("List of communities: ");
 				account.toStringCommunities();
 				aux.getMembers().add(account.getLogin());
-				return; 
+				return;
 			} 
 			System.out.println("Community doesn't exist.");
 		}
 		
 		public void getInformations(Account account) {
 			System.out.println("------------- INFO --------------");
-			System.out.println("Account: ");
-			System.out.println("---------------------------");
 			System.out.println(account.toString());
 			System.out.println("---------------------------");
 			System.out.println("Communities: ");
@@ -435,10 +437,14 @@ public class Menu {
 			System.out.println("---------------------------");
 		}
 		
-		public void postFeed(Account account) { // corrigir pra caso o usuario seja inconveniente e digite != 1 ou 2
+		public void postFeed(Account account) { 
 			System.out.println("Do you want to post (1) public or (2) private?"); 
 			int option = scan.nextInt();
 			scan.nextLine();
+			if(option != 1 || option != 2) {
+				System.out.println("Invalid value.");
+				return;
+			}
 			System.out.println("Type your message: ");
 			String message = scan.nextLine();
 			Feed newMessage = new Feed(message, account.getLogin(), option);
@@ -460,6 +466,36 @@ public class Menu {
 				}
 					
 			}
-		}		
+		}
+		
+		public void deleteAccount(Account account) {
+			System.out.println("Are you sure you want to leave us? 1 - Yes / 2 - No");
+			//Account myFriend = new Account();
+			int option = scan.nextInt(); 
+			switch(option) {
+			case 1:
+				
+				// apagar comunidades (feitas e participantes), relacoes de amizade (+convites enviados e recebidos)
+				// mensagens particulares enviadas e recebidas +feed 
+				
+				account.setLogin(null);
+				account.setPassword(null);
+				account.setAbout(null);
+				account.setAddress(null);
+				account.setAge(0);
+				getInformations(account);
+				users.remove(account);
+				for(Account user : users) {
+					System.out.println(user.getLogin());
+				}
+				break;
+			case 2:
+				System.out.println("We're happy that you will continue with us.");
+				break;
+			default:
+				System.out.println("Invalid value.");
+				break;
+			}
+		} 
 	}
 

@@ -1,18 +1,17 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Community {
-	protected String name; 
-	protected String description; 
-	protected String creator; 
-	protected ArrayList<String> members;
+	private String name, description, creator;
+	private List<String> members = new ArrayList<>();
 	
 	public Community() {
 		
 	}
 	
-	public Community(String name, String description, String creator, ArrayList<String> members) {
+	public Community(String name, String description, String creator, List<String> members) {
 		this.name = name;
 		this.description = description;
 		this.creator = creator;
@@ -37,18 +36,18 @@ public class Community {
 	public void setCreator(String creator) {
 		this.creator = creator;
 	}
-	public ArrayList<String> getMembers() {
+	public List<String> getMembers() {
 		return members;
 	}
-	public void setMembers(ArrayList<String> members) {
+	public void setMembers(List<String> members) {
 		this.members = members;
 	}
 
 	@Override
 	public String toString() {
-		return "------ Community created ------"
-				+ "Name: " + name + ", "
-				+ "Description: " + description + ", "
+		return "------ Community created ------" + " \n"
+				+ "Name: " + name + " \n"
+				+ "Description: " + description + " \n"
 				+ "Creator: " + creator;
 	}
 	

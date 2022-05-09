@@ -2,10 +2,8 @@ package utilities;
 
 public class Message {
 	
-	protected String sender; 
-	protected String receiver; 
-	protected String message;
-	
+	protected String sender, receiver, message;
+
 	public Message(String sender, String receiver, String message) {
 		this.sender = sender;
 		this.receiver = receiver;

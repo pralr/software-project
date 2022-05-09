@@ -1,20 +1,16 @@
 package entities;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import utilities.Community;
 
 public class Account {
-	protected String login;
-	protected String password; 
-	protected String nickname;
-	protected String about; 
-	protected int age; 
-	protected String address; 
-	protected ArrayList<String> friends = new ArrayList<>();
-	protected ArrayList<Community> communities = new ArrayList<>();
-	protected ArrayList<String> sendInvitation = new ArrayList<>();
-	protected ArrayList<String> receivedInvitation = new ArrayList<>();
+	private String login, password, nickname, about, address;
+	private int age;  
+	private List<String> friends = new ArrayList<>();
+	private List<Community> communities = new ArrayList<>();
+	private List<String> sendInvitation = new ArrayList<>();
+	private List<String> receivedInvitation = new ArrayList<>();
 	
 	public Account() {
 		
@@ -25,6 +21,21 @@ public class Account {
 		this.password = password;
 		this.nickname = nickname;
 		
+	}
+
+	protected Account(String login, String password, String nickname, String about, int age, String address,
+			List<String> friends, List<Community> communities, List<String> sendInvitation,
+			List<String> receivedInvitation) {
+		this.login = login;
+		this.password = password;
+		this.nickname = nickname;
+		this.about = about;
+		this.age = age;
+		this.address = address;
+		this.friends = friends;
+		this.communities =  new ArrayList<>();
+		this.sendInvitation =  new ArrayList<>();
+		this.receivedInvitation =  new ArrayList<>();
 	}
 
 	public String getLogin() {
@@ -75,36 +86,36 @@ public class Account {
 		this.address = address;
 	}
 	
-	public ArrayList<String> getFriends() {
+	public List<String> getFriends() {
 		return friends;
 	}
 
-	public void setFriends(ArrayList<String> friends) {
+	public void setFriends(List<String> friends) {
 		this.friends = friends;
 	}
 
-	public ArrayList<String> getSendInvitation() {
+	public List<String> getSendInvitation() {
 		return sendInvitation;
 	}
 
-	public void setSendInvitation(ArrayList<String> sendInvitation) {
+	public void setSendInvitation(List<String> sendInvitation) {
 		this.sendInvitation = sendInvitation;
 	}
 
-	public ArrayList<String> getReceivedInvitation() {
+	public List<String> getReceivedInvitation() {
 		return receivedInvitation;
 	}
 
-	public void setReceivedInvitation(ArrayList<String> receivedInvitation) {
+	public void setReceivedInvitation(List<String> receivedInvitation) {
 		this.receivedInvitation = receivedInvitation;
 	}
 	
 
-	public ArrayList<Community> getCommunities() {
+	public List<Community> getCommunities() {
 		return communities;
 	}
 
-	public void setCommunities(ArrayList<Community> communities) {
+	public void setCommunities(List<Community> communities) {
 		this.communities = communities;
 	}
 
