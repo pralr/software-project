@@ -464,27 +464,77 @@ public class Menu {
 			}
 		}
 		
+		
+		public void deleteCommunities(Account account) { 
+			List<Community> delete = new ArrayList<>();
+			Account otherAccount = new Account();
+			
+			for(Community c : communities) {
+				if(c.getCreator().equals(account.getLogin())) {
+					c.getMembers().clear(); 
+					delete.add(c);
+				}
+			}
+	
+			for(Account user : users) {
+					otherAccount = findAccount(user.getLogin());
+					otherAccount.getCommunities().removeAll(delete);
+			}
+			communities.removeAll(delete);
+			
+		}
+		
+		public void deleteFeed(Account account) {
+			List<Feed> delete = new ArrayList<>();
+			for(Feed f : feed) {
+				if(f.getSender().equals(account.getLogin())) {
+					delete.add(f);
+				}
+			} feed.removeAll(delete);
+		}
+		
+		public void deleteMessages(Account account) {
+			List<Message> delete = new ArrayList<>();
+			for(Message m : messages) {
+				if(m.getSender().equals(account.getLogin()) || m.getReceiver().equals(account.getLogin())) {
+					delete.add(m);
+				}
+			}
+			messages.removeAll(delete);
+		}
+		
+		public void deleteInvit(Account account) {
+			Account otherAccount = new Account();
+			for(Account user : users) {
+				otherAccount = findAccount(user.getLogin());
+				otherAccount.getReceivedInvitation().remove(user.getLogin());
+			}
+		}
+		
 		public void deleteAccount(Account account) {
 			System.out.println("Are you sure you want to leave us? 1 - Yes / 2 - No");
-			//Account myFriend = new Account();
 			int option = scan.nextInt(); 
 			switch(option) {
 			case 1:
-				
-				// apagar comunidades (feitas e participantes), relacoes de amizade (+convites enviados e recebidos)
-				// mensagens particulares enviadas e recebidas + 
-				
+	
+				deleteCommunities(account);
+				deleteFeed(account);
+				deleteMessages(account);
+				deleteInvit(account);
 				account.setLogin(null);
+				account.setNickname(null);
 				account.setPassword(null);
 				account.setAbout(null);
 				account.setAddress(null);
 				account.setAge(0);
 				getInformations(account);
 				users.remove(account);
+				System.out.println("------------- REMAINING USERS -------------");
 				for(Account user : users) {
 					System.out.println(user.getLogin());
 				}
-				break;
+				System.out.println("--------------------------------------------");
+				return;
 			case 2:
 				System.out.println("We're happy that you will continue with us.");
 				break;
