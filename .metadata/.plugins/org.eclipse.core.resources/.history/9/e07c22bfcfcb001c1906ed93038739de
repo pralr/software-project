@@ -1,7 +1,0 @@
-
-public class Messages {
-	// qm enviou, qm recebe, e a mensagem
-	protected String sender; 
-	protected String receiver; 
-	protected String messages;  
-}

@@ -1,0 +1,6 @@
+package application;
+import entities.Account;
+
+public class DeleteAcc extends Account {
+
+}

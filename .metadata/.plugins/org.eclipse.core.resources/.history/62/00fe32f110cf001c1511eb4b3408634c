@@ -1,0 +1,8 @@
+package application;
+import entities.Account;
+
+public class DeleteAcc extends Account {
+	public void deleteCommunities() {
+		System.out.println(login + " teste");
+	}
+}
