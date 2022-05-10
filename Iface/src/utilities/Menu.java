@@ -16,14 +16,14 @@ public class Menu {
 	Scanner scan = new Scanner(System.in);
 	
 	public Menu() {
-		Account teste = new Account("pri", "1", "pri");
-		users.add(teste);
-		teste = new Account("arthur", "2", "arthur");
-		users.add(teste);
-		teste = new Account("will", "3", "will");
-		users.add(teste);
-		teste = new Account("mesquita", "4", "mesquita");
-		users.add(teste);
+		Account account = new Account("pri", "1", "pri");
+		users.add(account);
+		account = new Account("arthurfeiao", "2", "arthur");
+		users.add(account);
+		account = new Account("willfalso", "3", "will");
+		users.add(account);
+		account = new Account("mesquitafofo", "4", "mesquita");
+		users.add(account);
 	}
 
 	public void menu() {
@@ -41,15 +41,14 @@ public class Menu {
                  break;
              case 2:
             	 Account account = login();
-	        	 if(!(account == null)) {
+	        	 if(!(account == null))
 	        		 loggedMenu(account);
-	        	 }  
                  break;
              case 3:
                  System.out.println("Closed.");
                  return;
              default:
-                 System.out.println("Invalid Value");
+                 System.out.println("Invalid value.");
                  break;
          }
       }
@@ -248,6 +247,11 @@ public class Menu {
 			System.out.println("You're already sent invitation to " + friend.getLogin());
 			return;
 		} 
+		
+		if(account.getReceivedInvitation().contains(friend.getLogin())) {
+			System.out.println("The user " + account.getLogin() + " already sent invitation to you.");
+			return;
+		}
 		
 		friend.getReceivedInvitation().add(account.getLogin());
 		account.getSendInvitation().add(friend.getLogin());
