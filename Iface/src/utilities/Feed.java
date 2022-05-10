@@ -1,6 +1,7 @@
 package utilities;
 
 public class Feed {
+	
 	protected String feedMessages, sender;
 	protected int permission;
 	

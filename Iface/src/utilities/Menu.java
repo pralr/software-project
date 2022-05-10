@@ -10,6 +10,7 @@ public class Menu {
 	List<Message> messages = new ArrayList<>();
 	List<Community> communities = new ArrayList<>();
 	List<Feed> feed = new ArrayList<>();
+	List<CommunityMsg> commMessages = new ArrayList<>();
 	
 	Scanner scan = new Scanner(System.in);
 	
@@ -57,17 +58,18 @@ public class Menu {
 		 while(true) {
 	         System.out.println("1 - Edit account");
 	         System.out.println("2 - Add friend");
-	         System.out.println("3 - Send message");
-	         System.out.println("4 - Show message");
-	         System.out.println("5 - Acc friend");
-	         System.out.println("6 - Create community");
-	         System.out.println("7 - Manage members");
-	         System.out.println("8 - Join a community");
-	         System.out.println("9 - Get my informations");
-	         System.out.println("10 - Send message to feed");
-	         System.out.println("11 - Show feed");
-	         System.out.println("12 - Delete account");
-	         System.out.println("13 - Exit");
+	         System.out.println("3 - Acc friend");
+	         System.out.println("4 - Send message");
+	         System.out.println("5 - Chat");
+	         System.out.println("6 - Join community");
+	         System.out.println("7 - Create community");
+	         System.out.println("8 - Manage members of my communities");
+	         System.out.println("9 - Send message to communities");
+	         System.out.println("10 - Recover data");
+	         System.out.println("11 - Send message to feed");
+	         System.out.println("12 - Show feed");
+	         System.out.println("13 - Delete account");
+	         System.out.println("14 - Exit");
 	         
 	         System.out.print("option: ");
 	         int option = scan.nextInt();
@@ -80,36 +82,38 @@ public class Menu {
 	            	 addFriend(account);
 	                 break;
 	             case 3:
-	                 sendMessage(account);
-	            	 break;
-	             case 4:
-	            	 showMessages(account);
-	            	 break;
-	             case 5: 
 	            	 accFriend(account);
 	            	 break;
+	             case 4:
+	            	 sendMessage(account);
+	            	 break;
+	             case 5: 
+	            	 showMessages(account);
+	            	 break;
 	             case 6:
-	            	 createCommunity(account); 
-	            	 break;
-	             case 7: 
-	            	 manageCommunity(account);
-	            	 break;
-	             case 8:
 	            	 joinCommunity(account);
 	            	 break;
+	             case 7: 
+	            	 createCommunity(account);
+	            	 break;
+	             case 8:
+	            	 manageCommunity(account);
+	            	 break;
 	             case 9:
-	            	 getInformations(account);
+	            	 sendMessagetoCommunity(account);
 	            	 break;
 	             case 10: 
-	            	 postFeed(account);
+	            	 getInformations(account);
 	            	 break;
 	             case 11:
-	            	 showFeed(account);
+	            	 postFeed(account);
 	            	 break;
 	             case 12:
-	            	deleteAccount(account);
-	            	 break;
-	             case 13: 
+	            	 showFeed(account);
+	             case 13:
+	            	 deleteAccount(account);
+	            	 return;
+	             case 14: 
 	            	 System.out.println("See you soon, " + account.getLogin() + "!");
 	            	 return;
 	             default:
@@ -353,6 +357,8 @@ public class Menu {
 						switch(option) {
 						case 1:
 							searchCommunity(nameCommunity).getMembers().remove(nameMember); 
+							Account aux = findAccount(nameMember);
+							aux.getCommunities().remove(searchCommunity(nameCommunity));
 							System.out.println("The user " + nameMember + " is not part of this community anymore.");
 							break;
 						case 2:
@@ -369,11 +375,10 @@ public class Menu {
 						switch(option) {
 						case 1:
 							if(findAccount(nameMember)!=null) {
-								// add o usuario na comunidade
 								searchCommunity(nameCommunity).getMembers().add(nameMember); 
-								// add a comunidade no perfil do usuario 
 							    Account aux = findAccount(nameMember); 
 								aux.getCommunities().add(searchCommunity(nameCommunity));
+								System.out.println("The user " + nameMember + "it's in your community.");
 							} else {
 								System.out.println("User doesn't exists.");
 							}
@@ -391,9 +396,8 @@ public class Menu {
 					
 				} else {
 					System.out.println("You're not the host of this community.");
+					return;
 				}
-			} else {
-				return;
 			}
 
 		}
@@ -420,6 +424,50 @@ public class Menu {
 			System.out.println("Community doesn't exist.");
 		}
 		
+		public void sendMessagetoCommunity(Account account) {
+			System.out.println("------------MY COMMUNITIES--------------");
+			for(Community c : account.getCommunities()) {
+				System.out.println("-----> " + c.getName());
+			}
+			System.out.println("Community you want to send a message: ");
+			scan.nextLine();
+			String communityName = scan.nextLine();
+			// ver se a comunidade existe e é membro 
+			if(searchCommunity(communityName)!=null) {
+				if(account.getCommunities().contains(searchCommunity(communityName))) {
+					// envie a mensagem pra comunidade 
+					System.out.println("Send message to: " + communityName);
+					String msg = scan.nextLine();
+					CommunityMsg newmsg = new CommunityMsg(account.getLogin(), msg, communityName);
+					commMessages.add(newmsg);
+					System.out.println("Do you want to see community messages? 1 - Yes / 2 - No");
+					Integer option = scan.nextInt();
+					if(option.equals(1)) {
+						for(CommunityMsg m : commMessages) {
+							if(m.getCommunity().equals(communityName)) {
+								System.out.println(m.getSender() + ": " + m.getMessage());
+							}
+						}
+					} else if (option.equals(2)) {
+						System.out.println("Returning...");
+						return;
+					} else {
+						System.out.println("Invalid option.");
+						return;
+					}
+					
+				} else {
+					System.out.println("You're not member of  this community.");
+					return;
+				}
+			} else {
+				System.out.println("This community doesn't exist.");
+			}
+			
+			// ver se o cara é membro. se for, pode mandar mensagem pra comunidade
+			// ver se o cara é membro. se for, pode VER as mensagens da comunidade
+		}
+		
 		public void getInformations(Account account) {
 			System.out.println("------------- INFO --------------");
 			System.out.println(account.toString());
@@ -439,12 +487,16 @@ public class Menu {
 		
 		public void postFeed(Account account) { 
 			System.out.println("Do you want to post (1) public or (2) private?"); 
-			int option = scan.nextInt();
-			System.out.println("Type your message: ");
-			scan.nextLine();
-			String message = scan.nextLine();
-			Feed newMessage = new Feed(message, account.getLogin(), option);
-			feed.add(newMessage);
+			Integer option = scan.nextInt();
+			if(option.equals(1) || option.equals(2)) {
+				System.out.println("Type your message: ");
+				scan.nextLine();
+				String message = scan.nextLine();
+				Feed newMessage = new Feed(message, account.getLogin(), option);
+				feed.add(newMessage);
+				return;
+			}
+			System.out.println("Invalid value.");
 		}
 		
 		public void showFeed(Account account) {
@@ -484,6 +536,16 @@ public class Menu {
 			
 		}
 		
+		public void deleteCommunitiesMsg(Account account) {
+			List<CommunityMsg> delete = new ArrayList<>();
+			for(CommunityMsg msg : commMessages) {
+				if(msg.getSender().equals(account.getLogin())) {
+					delete.add(msg);
+				}
+			}
+			commMessages.removeAll(delete);
+		}
+		
 		public void deleteFeed(Account account) {
 			List<Feed> delete = new ArrayList<>();
 			for(Feed f : feed) {
@@ -516,8 +578,8 @@ public class Menu {
 			int option = scan.nextInt(); 
 			switch(option) {
 			case 1:
-	
 				deleteCommunities(account);
+				deleteCommunitiesMsg(account);
 				deleteFeed(account);
 				deleteMessages(account);
 				deleteInvit(account);
@@ -534,7 +596,7 @@ public class Menu {
 					System.out.println(user.getLogin());
 				}
 				System.out.println("--------------------------------------------");
-				return;
+				break;
 			case 2:
 				System.out.println("We're happy that you will continue with us.");
 				break;
