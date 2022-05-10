@@ -7,10 +7,11 @@ import entities.Account;
 
 public class Menu {
 	List<Account> users = new ArrayList<>();
-	List<Message> messages = new ArrayList<>();
-	List<Community> communities = new ArrayList<>();
-	List<Feed> feed = new ArrayList<>();
+	List<Chat> messagesChat = new ArrayList<>();
 	List<CommunityMsg> commMessages = new ArrayList<>();
+	List<Feed> feed = new ArrayList<>();
+	List<Community> communities = new ArrayList<>();
+
 	
 	Scanner scan = new Scanner(System.in);
 	
@@ -110,9 +111,15 @@ public class Menu {
 	            	 break;
 	             case 12:
 	            	 showFeed(account);
+	            	 break;
 	             case 13:
-	            	 deleteAccount(account);
-	            	 return;
+	            	 Integer opt = deleteAccount(account);
+	            	 if(opt.equals(1)) { 
+	            		 return;
+	            	 }
+	            	 if(opt.equals(2)) { 
+	            		 break;
+	            	 }
 	             case 14: 
 	            	 System.out.println("See you soon, " + account.getLogin() + "!");
 	            	 return;
@@ -215,7 +222,7 @@ public class Menu {
 		
 	}
 	
-	public Account findAccount(String login) {
+	public Account searchAccount(String login) {
 		for(Account account : users) {
 			if(account.getLogin().equals(login)) {
 				return account;
@@ -226,7 +233,7 @@ public class Menu {
 	
 	public void addFriend(Account account) {
 		System.out.println("Search for: ");
-		Account friend = findAccount(scan.next());
+		Account friend = searchAccount(scan.next());
 		if(friend == null) {
 			System.out.println("Doesn't exist.");
 			return;
@@ -252,7 +259,7 @@ public class Menu {
 	public void accFriend(Account account) {
 		System.out.println(account.getReceivedInvitation());
 		System.out.println("Insert user who you want to manage: ");
-		Account friend = findAccount(scan.next());
+		Account friend = searchAccount(scan.next());
 		if(friend == null) {
 			System.out.println("No user with that name has added you.");
 			return;
@@ -279,12 +286,12 @@ public class Menu {
 		public void sendMessage(Account account) {
 			System.out.println("Send message to: ");
 			String receiver = scan.next();
-			if(findAccount(receiver) != null) {
+			if(searchAccount(receiver) != null) {
 				System.out.println("Type your message: ");
 				scan.nextLine();
 				String msg = scan.nextLine();
-				Message message = new Message(account.getLogin(), receiver, msg);
-				messages.add(message);
+				Chat message = new Chat(account.getLogin(), msg, receiver);
+				messagesChat.add(message);
 			} else {
 				System.out.println("Not found.");
 			}
@@ -294,12 +301,11 @@ public class Menu {
 		public void showMessages(Account account) {
 			System.out.println("Who do you want to contact: ");
 			String receiver = scan.next();
-			if(findAccount(receiver) != null) {
-				for(Message msg : messages) {
+			if(searchAccount(receiver) != null) {
+				for(Chat msg : messagesChat) {
 					if(msg.getSender().equals(receiver) || msg.getSender().equals(account.getLogin())) {
 						if(msg.getReceiver().equals(account.getLogin()) || msg.getReceiver().equals(receiver)) {
-			
-							System.out.println(msg.getSender() + ": " + msg.getMessages());
+							System.out.println(msg.getSender() + ": " + msg.getMessage());
 						}
 					} 
 				}
@@ -311,8 +317,8 @@ public class Menu {
 		}
 		
 		public void showAllMessages(Account account) {
-			for(Message msg : messages) {
-				System.out.println(msg.getSender() + ": " + msg.getMessages());
+			for(Chat msg : messagesChat) {
+				System.out.println(msg.getSender() + ": " + msg.getMessage());
 			}
 		}
 		
@@ -357,7 +363,7 @@ public class Menu {
 						switch(option) {
 						case 1:
 							searchCommunity(nameCommunity).getMembers().remove(nameMember); 
-							Account aux = findAccount(nameMember);
+							Account aux = searchAccount(nameMember);
 							aux.getCommunities().remove(searchCommunity(nameCommunity));
 							System.out.println("The user " + nameMember + " is not part of this community anymore.");
 							break;
@@ -374,11 +380,11 @@ public class Menu {
 						option = scan.nextInt();
 						switch(option) {
 						case 1:
-							if(findAccount(nameMember)!=null) {
+							if(searchAccount(nameMember)!=null) {
 								searchCommunity(nameCommunity).getMembers().add(nameMember); 
-							    Account aux = findAccount(nameMember); 
+							    Account aux = searchAccount(nameMember); 
 								aux.getCommunities().add(searchCommunity(nameCommunity));
-								System.out.println("The user " + nameMember + "it's in your community.");
+								System.out.println("The user " + nameMember + " it's in your community.");
 							} else {
 								System.out.println("User doesn't exists.");
 							}
@@ -432,10 +438,8 @@ public class Menu {
 			System.out.println("Community you want to send a message: ");
 			scan.nextLine();
 			String communityName = scan.nextLine();
-			// ver se a comunidade existe e é membro 
 			if(searchCommunity(communityName)!=null) {
 				if(account.getCommunities().contains(searchCommunity(communityName))) {
-					// envie a mensagem pra comunidade 
 					System.out.println("Send message to: " + communityName);
 					String msg = scan.nextLine();
 					CommunityMsg newmsg = new CommunityMsg(account.getLogin(), msg, communityName);
@@ -463,9 +467,6 @@ public class Menu {
 			} else {
 				System.out.println("This community doesn't exist.");
 			}
-			
-			// ver se o cara é membro. se for, pode mandar mensagem pra comunidade
-			// ver se o cara é membro. se for, pode VER as mensagens da comunidade
 		}
 		
 		public void getInformations(Account account) {
@@ -492,7 +493,7 @@ public class Menu {
 				System.out.println("Type your message: ");
 				scan.nextLine();
 				String message = scan.nextLine();
-				Feed newMessage = new Feed(message, account.getLogin(), option);
+				Feed newMessage = new Feed(account.getLogin(), message, option);
 				feed.add(newMessage);
 				return;
 			}
@@ -503,11 +504,11 @@ public class Menu {
 			for(Feed f : feed) {
 				
 				if(f.getPermission() == 1) {
-					System.out.println("[PUBLIC] " + f.getSender() + ": " + f.getFeedMessages());
+					System.out.println("[PUBLIC] " + f.getSender() + ": " + f.getMessage());
 				}
 				if(f.getPermission() == 2) { 
 					if(f.getSender().equals(account.getLogin()) || account.getFriends().contains(f.getSender())) {
-						System.out.println("[PRIVATE] " + f.getSender() + ": " + f.getFeedMessages());
+						System.out.println("[PRIVATE] " + f.getSender() + ": " + f.getMessage());
 						
 					}
 					
@@ -529,7 +530,7 @@ public class Menu {
 			}
 	
 			for(Account user : users) {
-					otherAccount = findAccount(user.getLogin());
+					otherAccount = searchAccount(user.getLogin());
 					otherAccount.getCommunities().removeAll(delete);
 			}
 			communities.removeAll(delete);
@@ -556,24 +557,24 @@ public class Menu {
 		}
 		
 		public void deleteMessages(Account account) {
-			List<Message> delete = new ArrayList<>();
-			for(Message m : messages) {
+			List<Chat> delete = new ArrayList<>();
+			for(Chat m : messagesChat) {
 				if(m.getSender().equals(account.getLogin()) || m.getReceiver().equals(account.getLogin())) {
 					delete.add(m);
 				}
 			}
-			messages.removeAll(delete);
+			messagesChat.removeAll(delete);
 		}
 		
 		public void deleteInvit(Account account) {
 			Account otherAccount = new Account();
 			for(Account user : users) {
-				otherAccount = findAccount(user.getLogin());
+				otherAccount = searchAccount(user.getLogin());
 				otherAccount.getReceivedInvitation().remove(user.getLogin());
 			}
 		}
 		
-		public void deleteAccount(Account account) {
+		public int deleteAccount(Account account) {
 			System.out.println("Are you sure you want to leave us? 1 - Yes / 2 - No");
 			int option = scan.nextInt(); 
 			switch(option) {
@@ -596,13 +597,13 @@ public class Menu {
 					System.out.println(user.getLogin());
 				}
 				System.out.println("--------------------------------------------");
-				break;
+				return 1;
 			case 2:
 				System.out.println("We're happy that you will continue with us.");
-				break;
+				return 2;
 			default:
 				System.out.println("Invalid value.");
-				break;
+				return -1;
 			}
 		} 
 	}

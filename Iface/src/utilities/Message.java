@@ -2,11 +2,14 @@ package utilities;
 
 public class Message {
 	
-	protected String sender, receiver, message;
+	protected String sender, message;
+	
+	public Message() {
+		
+	}
 
-	public Message(String sender, String receiver, String message) {
+	public Message(String sender, String message) {
 		this.sender = sender;
-		this.receiver = receiver;
 		this.message = message;
 	}
 
@@ -18,19 +21,11 @@ public class Message {
 		this.sender = sender;
 	}
 
-	public String getReceiver() {
-		return receiver;
-	}
-
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
-	}
-
-	public String getMessages() {
+	public String getMessage() {
 		return message;
 	}
 
-	public void setMessages(String message) {
+	public void setMessage(String message) {
 		this.message = message;
 	}  
 	

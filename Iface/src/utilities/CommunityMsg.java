@@ -1,41 +1,19 @@
 package utilities;
 
-public class CommunityMsg {
-	
-	protected String sender, message, community;
+public class CommunityMsg extends Message {
+	protected String nameCommunity;
 
-	public CommunityMsg() {
-		
-	}
-	
-	public CommunityMsg(String sender, String message, String community) {
-		this.sender = sender;
-		this.message = message;
-		this.community = community;
-	}
-
-	public String getSender() {
-		return sender;
-	}
-
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+	protected CommunityMsg(String sender, String message, String nameCommunity) {
+		super(sender, message);
+		this.nameCommunity = nameCommunity;
 	}
 
 	public String getCommunity() {
-		return community;
+		return nameCommunity;
 	}
 
-	public void setCommunity(String community) {
-		this.community = community;
+	public void setCommunity(String nameCommunity) {
+		this.nameCommunity = nameCommunity;
 	}
 
 }
