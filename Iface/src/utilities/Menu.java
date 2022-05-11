@@ -12,18 +12,17 @@ public class Menu {
 	List<CommunityMsg> commMessages = new ArrayList<>();
 	List<Feed> feed = new ArrayList<>();
 	List<Community> communities = new ArrayList<>();
-
 	
 	Scanner scan = new Scanner(System.in);
 	
 	public Menu() {
 		Account account = new Account("pri", "1", "pri");
 		users.add(account);
-		account = new Account("arthurfeiao", "2", "arthur");
+		account = new Account("arthur", "2", "arthur");
 		users.add(account);
-		account = new Account("willfalso", "3", "will");
+		account = new Account("will", "3", "will");
 		users.add(account);
-		account = new Account("mesquitafofo", "4", "mesquita");
+		account = new Account("mesquita", "4", "mesquita");
 		users.add(account);
 	}
 
@@ -191,7 +190,7 @@ public class Menu {
 				   System.out.println("Name: ");
 				   scan.nextLine();
 				   String name = scan.nextLine();
-				   account.setAbout(name);
+				   account.setName(name);
 				   break;
 				case 2: 
 					System.out.println("About: ");
@@ -217,7 +216,7 @@ public class Menu {
 					break;
 				case 6:
 					System.out.println("Saved.");
-					break;
+					return;
 				default:
 					System.out.println("Invalid value.");
 					break;

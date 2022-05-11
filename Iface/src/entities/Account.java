@@ -128,11 +128,11 @@ public class Account extends Funcionalities
 
 	@Override
 	public String toString() {
-		return  "Name: " + name + "\n" +
+		return  "Name: " + super.name + "\n" +
 				"Login: " + login + " \n" +
 				"Password: " + password + " \n" +
 				"Nickname: " + nickname + " \n" +
-				"About: " + description + " \n" +
+				"About: " + super.description + " \n" +
 				"Age: " + age + " \n" +
 				"Address: " + address;
 	}
