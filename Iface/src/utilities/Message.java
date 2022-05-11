@@ -1,6 +1,6 @@
 package utilities;
 
-abstract public class Message {
+public class Message {
 	
 	protected String sender, message;
 	

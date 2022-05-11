@@ -2,10 +2,9 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import utilities.Community;
-
-public class Account {
-	private String login, password, nickname, about, address;
+public class Account extends Funcionalities 
+{
+	private String login, password, nickname, description, address;
 	private int age;  
 	private List<String> friends = new ArrayList<>();
 	private List<Community> communities = new ArrayList<>();
@@ -23,13 +22,13 @@ public class Account {
 		
 	}
 
-	protected Account(String login, String password, String nickname, String about, int age, String address,
+	protected Account(String login, String password, String nickname, String description, int age, String address,
 			List<String> friends, List<Community> communities, List<String> sendInvitation,
 			List<String> receivedInvitation) {
 		this.login = login;
 		this.password = password;
 		this.nickname = nickname;
-		this.about = about;
+		this.description = description;
 		this.age = age;
 		this.address = address;
 		this.friends = friends;
@@ -38,6 +37,22 @@ public class Account {
 		this.receivedInvitation =  new ArrayList<>();
 	}
 
+	public String getName() {
+		return super.name;
+	}
+	
+	public void setName(String name) {
+		super.name = name;
+	}
+	
+	public String getDescription() {
+		return super.description;
+	}
+
+	public void setAbout(String description) {
+		super.description = description;
+	}
+	
 	public String getLogin() {
 		return login;
 	}
@@ -60,14 +75,6 @@ public class Account {
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-	
-	public String getAbout() {
-		return about;
-	}
-
-	public void setAbout(String about) {
-		this.about = about;
 	}
 
 	public int getAge() {
@@ -121,10 +128,11 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Login: " + login + " \n" +
+		return  "Name: " + name + "\n" +
+				"Login: " + login + " \n" +
 				"Password: " + password + " \n" +
 				"Nickname: " + nickname + " \n" +
-				"About: " + about + " \n" +
+				"About: " + description + " \n" +
 				"Age: " + age + " \n" +
 				"Address: " + address;
 	}
@@ -142,5 +150,14 @@ public class Account {
 			System.out.println(friend);
 		}
 	}
-	
+
+	@Override
+	public void printAll() {
+		System.out.println("--------LIST OF COMMUNITIES-----------");
+		for(Community community : communities) {
+			System.out.println("Community: " + community.getName());
+		}
+		System.out.println("--------------------------------------");
+	}
+
 }

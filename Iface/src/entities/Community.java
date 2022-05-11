@@ -3,8 +3,8 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Community {
-	private String name, description, creator;
+public class Community extends Funcionalities {
+	private String creator;
 	private List<String> members = new ArrayList<>();
 	
 	public Community() {
@@ -12,23 +12,23 @@ public class Community {
 	}
 	
 	public Community(String name, String description, String creator, List<String> members) {
-		this.name = name;
-		this.description = description;
+		super.name = name;
+		super.description = description;
 		this.creator = creator;
 		this.members = new ArrayList<>();
 	}
 	
 	public String getName() {
-		return name;
+		return super.name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		super.name = name;
 	}
 	public String getDescription() {
-		return description;
+		return super.description;
 	}
 	public void setDescription(String description) {
-		this.description = description;
+		super.description = description;
 	}
 	public String getCreator() {
 		return creator;
@@ -49,6 +49,16 @@ public class Community {
 				+ "Name: " + name + " \n"
 				+ "Description: " + description + " \n"
 				+ "Creator: " + creator;
+	}
+	
+	// printando todoso s membrosd a comunidade 
+	@Override
+	public void printAll() {
+		System.out.println("-----------LIST OF MEMBERS------------");
+		for(String member : members) {
+			System.out.println("Member: " + member);
+		}
+		System.out.println("--------------------------------------");
 	}
 	
 }

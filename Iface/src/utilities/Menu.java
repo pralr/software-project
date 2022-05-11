@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import entities.Account;
+import entities.Community;
 
 public class Menu {
 	List<Account> users = new ArrayList<>();
@@ -172,11 +173,12 @@ public class Menu {
 	
 	public void editAccount(Account account) {
 		System.out.println("What do you want to edit?");
-		System.out.println("1 - About");
-		System.out.println("2 - Age");
-		System.out.println("3 - Address");
-		System.out.println("4 - Password");
-		System.out.println("5 - Close");
+		System.out.println("1 - Name");
+		System.out.println("2 - About");
+		System.out.println("3 - Age");
+		System.out.println("4 - Address");
+		System.out.println("5 - Password");
+		System.out.println("6 - Close");
 		
 		int option = 0; 
 		
@@ -185,29 +187,35 @@ public class Menu {
 			option = scan.nextInt();
 			
 			switch(option) {
-				case 1: 
+			    case 1: 
+				   System.out.println("Name: ");
+				   scan.nextLine();
+				   String name = scan.nextLine();
+				   account.setAbout(name);
+				   break;
+				case 2: 
 					System.out.println("About: ");
 					scan.nextLine();
 					String about = scan.nextLine();
 					account.setAbout(about);
 					break;
-				case 2: 
+				case 3: 
 					System.out.println("Age: ");
 					int age = scan.nextInt(); 
 					account.setAge(age);
 					break;
-				case 3:
+				case 4:
 					scan.nextLine();
 					System.out.println("Address: ");
 					String address = scan.nextLine(); 
 					account.setAddress(address);
 					break;
-				case 4: 
+				case 5: 
 					System.out.println("Password: ");
 					String password = scan.next();
 					account.setPassword(password);
 					break;
-				case 5:
+				case 6:
 					System.out.println("Saved.");
 					break;
 				default:
@@ -611,4 +619,3 @@ public class Menu {
 			}
 		} 
 	}
-
