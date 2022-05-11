@@ -256,7 +256,7 @@ public class Menu {
 		} 
 		
 		if(account.getReceivedInvitation().contains(friend.getLogin())) {
-			System.out.println("The user " + account.getLogin() + " already sent invitation to you.");
+			System.out.println("The user " + friend.getLogin() + " already sent invitation to you.");
 			return;
 		}
 		
