@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Account extends Funcionalities 
 {
-	private String login, password, nickname, description, address;
+	private String login, password, nickname, address;
 	private int age;  
 	private List<String> friends = new ArrayList<>();
 	private List<Community> communities = new ArrayList<>();

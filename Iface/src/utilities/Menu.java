@@ -179,8 +179,7 @@ public class Menu {
 		System.out.println("5 - Password");
 		System.out.println("6 - Close");
 		
-		int option = 0; 
-		
+		int option = 0;
 		while(option != 5) {
 			System.out.println("Insert option: ");
 			option = scan.nextInt();
@@ -189,32 +188,29 @@ public class Menu {
 			    case 1: 
 				   System.out.println("Name: ");
 				   scan.nextLine();
-				   String name = scan.nextLine();
-				   account.setName(name);
+				   account.setName(scan.nextLine());
 				   break;
 				case 2: 
 					System.out.println("About: ");
 					scan.nextLine();
-					String about = scan.nextLine();
-					account.setAbout(about);
+					account.setAbout(scan.nextLine());
 					break;
 				case 3: 
 					System.out.println("Age: ");
-					int age = scan.nextInt(); 
-					account.setAge(age);
+					account.setAge(scan.nextInt());
 					break;
 				case 4:
-					scan.nextLine();
 					System.out.println("Address: ");
-					String address = scan.nextLine(); 
-					account.setAddress(address);
+					scan.nextLine();
+					account.setAddress(scan.nextLine());
 					break;
 				case 5: 
 					System.out.println("Password: ");
-					String password = scan.next();
-					account.setPassword(password);
+					scan.nextLine();
+					account.setPassword(scan.nextLine());
 					break;
 				case 6:
+					System.out.println(account.toString());
 					System.out.println("Saved.");
 					return;
 				default:
