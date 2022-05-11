@@ -267,10 +267,6 @@ public class Menu {
 		System.out.println(account.getReceivedInvitation());
 		System.out.println("Insert user who you want to manage: ");
 		Account friend = searchAccount(scan.next());
-		if(friend == null) {
-			System.out.println("No user with that name has added you.");
-			return;
-		}
 		
 		if(account.getReceivedInvitation().contains(friend.getLogin())) {
 			System.out.println("Do you want to accept " + friend.getLogin() + "?");
@@ -287,7 +283,10 @@ public class Menu {
 			}
 			account.getReceivedInvitation().remove(friend.getLogin());
 			friend.getSendInvitation().remove(account.getLogin());
-		} 
+		} else {
+			System.out.println("No user with that name has added you.");
+			return;
+		}
 	}
 		
 		public void sendMessage(Account account) {
@@ -392,6 +391,7 @@ public class Menu {
 							    Account aux = searchAccount(nameMember); 
 								aux.getCommunities().add(searchCommunity(nameCommunity));
 								System.out.println("The user " + nameMember + " it's in your community.");
+								return;
 							} else {
 								System.out.println("User doesn't exists.");
 							}
@@ -412,6 +412,8 @@ public class Menu {
 					return;
 				}
 			}
+			
+			System.out.println("This community doesn't exists.");
 
 		}
 		
@@ -508,8 +510,12 @@ public class Menu {
 		}
 		
 		public void showFeed(Account account) {
+			
+			if(feed.isEmpty()) {
+				System.out.println("-------------NO MESSAGES----------");
+			}
+			
 			for(Feed f : feed) {
-				
 				if(f.getPermission() == 1) {
 					System.out.println("[PUBLIC] " + f.getSender() + ": " + f.getMessage());
 				}
@@ -581,6 +587,7 @@ public class Menu {
 			}
 		}
 		
+		
 		public int deleteAccount(Account account) {
 			System.out.println("Are you sure you want to leave us? 1 - Yes / 2 - No");
 			int option = scan.nextInt(); 
@@ -591,6 +598,7 @@ public class Menu {
 				deleteFeed(account);
 				deleteMessages(account);
 				deleteInvit(account);
+				account.getFriends().clear();
 				account.setLogin(null);
 				account.setNickname(null);
 				account.setPassword(null);
