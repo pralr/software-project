@@ -10,5 +10,9 @@ abstract class Funcionalities {
 	protected String description;
 
 	abstract public void printAll();
+	// abstract public void create(); 
+	// abstract public void edit();
+	// abstract public void delete();
+	// abstract public void search();
 	
 }

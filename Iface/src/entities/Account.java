@@ -137,18 +137,12 @@ public class Account extends Funcionalities
 				"Address: " + address;
 	}
 	
-	public void toStringCommunities() {
-		for(Community community : communities) {
-			System.out.println("-> " + community.getName());
-			System.out.println("Description: " + community.getDescription());
-			System.out.println("Creator: " + community.getCreator());
-		}
-	}
-	
 	public void toStringFriends() {
+		System.out.println("--------LIST OF FRIENDS---------------");
 		for(String friend : friends) {
 			System.out.println(friend);
 		}
+		System.out.println("--------------------------------------");
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class Community extends Funcionalities {
 				+ "Creator: " + creator;
 	}
 	
-	// printando todoso s membrosd a comunidade 
+	
 	@Override
 	public void printAll() {
 		System.out.println("-----------LIST OF MEMBERS------------");
