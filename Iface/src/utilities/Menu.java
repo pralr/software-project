@@ -3,7 +3,6 @@ package utilities;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import entities.Account;
@@ -49,9 +48,9 @@ public class Menu {
 			}
 		}
 	}
-
+	
 	public void loggedMenu(Account account) {
-		try {
+		int option = 0;
 		while (true) {
 			System.out.println("1 - Edit account");
 			System.out.println("2 - Add friend");
@@ -69,9 +68,10 @@ public class Menu {
 			System.out.println("14 - Show feed");
 			System.out.println("15 - Delete account");
 			System.out.println("16 - Exit");
-			int option = 0;
+			
 			System.out.print("option: ");
 			option = scan.nextInt();
+			
 			switch (option) {
 			case 1:
 				editAccount(account);
@@ -109,7 +109,7 @@ public class Menu {
 			case 12:
 				getInformations(account);
 				break;
-			case 13:
+			case 13:	
 				postFeed(account);
 				break;
 			case 14:
@@ -119,7 +119,7 @@ public class Menu {
 				Integer opt = deleteAccount(account);
 				if (opt.equals(1)) {
 					return;
-				}
+					}
 				if (opt.equals(2)) {
 					break;
 				}
@@ -130,13 +130,9 @@ public class Menu {
 				System.out.println("Invalid value.");
 				break;
 			}
-		} 
-	} catch (InputMismatchException e) {
-		System.out.println("Please choose a number!(1)");
-		throw new NoSuchElementException();
-	}
+	} 
 }
-
+	
 	public void createAccount() {
 		System.out.println("New login: ");
 		String login = scan.next();
@@ -250,7 +246,7 @@ public class Menu {
 			System.out.println("Doesn't exist.");
 			return;
 		}
-
+		
 		if (account.getFriends().contains(friend.getLogin())) {
 			System.out.println("You're already friends with " + friend.getLogin() + ".");
 			return;
