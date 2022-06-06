@@ -23,6 +23,7 @@ public class Menu {
 
 	public void menu() {
 		while (true) {
+			try {
 			System.out.println("1 - New Account");
 			System.out.println("2 - Login");
 			System.out.println("3 - Exit");
@@ -45,6 +46,9 @@ public class Menu {
 			default:
 				System.out.println("Invalid value.");
 				break;
+			} } catch(InputMismatchException e) {
+				System.out.println("Please, input a number.");
+				scan.nextLine();
 			}
 		}
 	}
@@ -52,6 +56,7 @@ public class Menu {
 	public void loggedMenu(Account account) {
 		int option = 0;
 		while (true) {
+			try {
 			System.out.println("1 - Edit account");
 			System.out.println("2 - Add friend");
 			System.out.println("3 - Acc friend");
@@ -129,6 +134,9 @@ public class Menu {
 			default:
 				System.out.println("Invalid value.");
 				break;
+			} } catch(InputMismatchException e) {
+				System.out.println("Please, input a number.");
+				scan.nextLine();
 			}
 	} 
 }
@@ -184,8 +192,8 @@ public class Menu {
 			System.out.println("6 - Close");
 
 			int option = 0;
-			try {
 			while (option != 5) {
+				try {
 				System.out.println("Insert option: ");
 				option = scan.nextInt();
 				switch (option) {
@@ -221,13 +229,12 @@ public class Menu {
 					System.out.println("Invalid value.");
 					break;
 					}
+				} catch(InputMismatchException e) {
+					System.out.println("Please, input a number.");
+					scan.nextLine();
 				}
 				System.out.println(account.toString());
-				} catch (InputMismatchException e) {
-					System.out.println("Please insert a number!(2)");
-					//option = scan.nextInt();
-				}
-			}
+			} }
 
 	public Account searchAccount(String login) {
 		for (Account account : users) {
