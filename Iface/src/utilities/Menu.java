@@ -62,7 +62,7 @@ public class Menu {
 				System.out.println("2 - Friends");
 				System.out.println("3 - Communities");
 				System.out.println("4 - Info");
-				System.out.println("5 - Messages");
+				System.out.println("5 - Feed");
 				System.out.println("6 - Log out");
 				System.out.println("----------------------------------------");
 				
@@ -90,6 +90,9 @@ public class Menu {
 					break;
 				case 6:
 					return;
+				default:
+					System.out.println("Invalid value.");
+					break;
 				}
 				
 			} catch(InputMismatchException e) {
@@ -503,6 +506,9 @@ public class Menu {
 				break;
 			case 5:
 				return;
+			default:
+				System.out.println("Please, choose a valid option");
+				break;
 			}
 		}
 	}
@@ -561,6 +567,7 @@ public class Menu {
 				System.out.println("--------------- Feed ---------------");
 			System.out.println("1 - Send message to feed");
 			System.out.println("2 - Show feed's messages");
+			System.out.println("3 - Return to menu");
 			System.out.println("----------------------------------------");
 			opt = scan.nextInt();
 			
@@ -597,6 +604,8 @@ public class Menu {
 
 				}
 				break;
+			case 3:
+				return;
 			default:
 				throw new IllegalArgumentException("Please, choose a valid option.");
 			}
