@@ -348,6 +348,8 @@ public class Menu {
 				scan.nextLine();
 			} catch(IllegalArgumentException e) {
 				System.out.println(e.getMessage());
+			} catch(NullPointerException e) {
+				System.out.println("No user with that nickname has added you.");
 			}
 
 		}
@@ -581,9 +583,9 @@ public class Menu {
 					String message = scan.nextLine();
 					Feed newMessage = new Feed(account.getLogin(), message, option);
 					feed.add(newMessage);
-					return;
+				} else {
+					System.out.println("Invalid value.");
 				}
-				System.out.println("Invalid value.");
 				break;
 			case 2:
 				if (feed.isEmpty()) {
